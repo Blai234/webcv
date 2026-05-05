@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi CV - WebCV</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--gray-800);
+            background: var(--gray-50);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.2);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            flex-shrink: 0;
+        }
+
+        .header-info h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .header-info p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-info span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .card h2 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .experience-item, .education-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .experience-item:last-child, .education-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-title {
+            font-weight: 600;
+            color: var(--gray-900);
+            font-size: 1.1rem;
+        }
+
+        .item-company {
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .item-date {
+            color: var(--gray-600);
+            font-size: 0.9rem;
+            white-space: nowrap;
+            margin-left: 1rem;
+        }
+
+        .item-description {
+            color: var(--gray-600);
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: var(--gray-100);
+            color: var(--gray-700);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid var(--gray-200);
+            transition: all 0.2s;
+        }
+
+        .skill-tag:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .sidebar .card {
+            background: white;
+        }
+
+        .progress-bar {
+            background: var(--gray-200);
+            height: 6px;
+            border-radius: 3px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        .language-item {
+            margin-bottom: 1rem;
+        }
+
+        .language-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .language-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.25rem;
+        }
+
+        .language-name {
+            font-weight: 500;
+            color: var(--gray-800);
+        }
+
+        .language-level {
+            color: var(--gray-600);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .contact-info {
+                justify-content: center;
+            }
+
+            .item-header {
+                flex-direction: column;
+            }
+
+            .item-date {
+                margin-left: 0;
+                margin-top: 0.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="avatar">👤</div>
+                <div class="header-info">
+                    <h1>Tu Nombre</h1>
+                    <p>Desarrollador Full Stack</p>
+                    <p>Especialista en crear soluciones web modernas</p>
+                    <div class="contact-info">
+                        <span>📧 email@ejemplo.com</span>
+                        <span>📱 +34 600 000 000</span>
+                        <span>📍 Ciudad, País</span>
+                        <span>🔗 linkedin.com/in/tuperfil</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="grid">
+            <main>
+                <div class="card">
+                    <h2>💼 Experiencia Laboral</h2>
+                    <div class="experience-item">
+                        <div class="item-header">
+                            <div>
+                                <div class="item-title">Senior Full Stack Developer</div>
+                                <div class="item-company">Tech Solutions Inc.</div>
+                            </div>
+                            <div class="item-date">2023 - Presente</div>
+                        </div>
+                        <div class="item-description">
+                            Lideré el desarrollo de aplicaciones web escalables utilizando React, Node.js y AWS. Implementé arquitecturas de microservicios que mejoraron el rendimiento en un 40%.
+                        </div>
+                    </div>
+                    <div class="experience-item">
+                        <div class="item-header">
+                            <div>
+                                <div class="item-title">Full Stack Developer</div>
+                                <div class="item-company">Digital Agency</div>
+                            </div>
+                            <div class="item-date">2021 - 2023</div>
+                        </div>
+                        <div class="item-description">
+                            Desarrollé y mantuve múltiples proyectos para clientes internacionales. Trabajé con tecnologías como Vue.js, Express y PostgreSQL.
+                        </div>
+                    </div>
+                    <div class="experience-item">
+                        <div class="item-header">
+                            <div>
+                                <div class="item-title">Frontend Developer</div>
+                                <div class="item-company">Startup Innovation</div>
+                            </div>
+                            <div class="item-date">2019 - 2021</div>
+                        </div>
+                        <div class="item-description">
+                            Creé interfaces de usuario atractivas y responsivas. Colaboré estrechamente con diseñadores UX/UI para implementar prototipos en código.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>🎓 Educación</h2>
+                    <div class="education-item">
+                        <div class="item-header">
+                            <div>
+                                <div class="item-title">Máster en Desarrollo Web</div>
+                                <div class="item-company">Universidad Tecnológica</div>
+                            </div>
+                            <div class="item-date">2019</div>
+                        </div>
+                    </div>
+                    <div class="education-item">
+                        <div class="item-header">
+                            <div>
+                                <div class="item-title">Grado en Ingeniería Informática</div>
+                                <div class="item-company">Universidad Nacional</div>
+                            </div>
+                            <div class="item-date">2017</div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <aside class="sidebar">
+                <div class="card">
+                    <h2>⚡ Habilidades</h2>
+                    <div class="skills-list">
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">TypeScript</span>
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">Vue.js</span>
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">MongoDB</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">AWS</span>
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">CI/CD</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>📊 Nivel Técnico</h2>
+                    <div class="language-item">
+                        <div class="language-header">
+                            <span class="language-name">JavaScript/TypeScript</span>
+                            <span class="language-level">Avanzado</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="language-item">
+                        <div class="language-header">
+                            <span class="language-name">React & Vue.js</span>
+                            <span class="language-level">Avanzado</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="language-item">
+                        <div class="language-header">
+                            <span class="language-name">Node.js & Backend</span>
+                            <span class="language-level">Avanzado</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="language-item">
+                        <div class="language-header">
+                            <span class="language-name">DevOps & Cloud</span>
+                            <span class="language-level">Intermedio</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 65%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>🌍 Idiomas</h2>
+                    <div class="language-item">
+                        <div class="language-header">
+                            <span class="language-name">Español</span>
+                            <span class="language-level">Nativo</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    <div class="language-item">
+                        <div class="language-header">
+                            <span class="language-name">Inglés</span>
+                            <span class="language-level">Avanzado (C1)</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</body>
+</html>
